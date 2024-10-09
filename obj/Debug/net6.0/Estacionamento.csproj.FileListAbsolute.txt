@@ -1,0 +1,14 @@
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\bin\Debug\net6.0\Estacionamento.exe
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\bin\Debug\net6.0\Estacionamento.deps.json
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\bin\Debug\net6.0\Estacionamento.runtimeconfig.json
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\bin\Debug\net6.0\Estacionamento.dll
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\bin\Debug\net6.0\Estacionamento.pdb
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\Estacionamento.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\Estacionamento.AssemblyInfoInputs.cache
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\Estacionamento.AssemblyInfo.cs
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\Estacionamento.csproj.CoreCompileInputs.cache
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\Estacionamento.dll
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\refint\Estacionamento.dll
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\Estacionamento.pdb
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\Estacionamento.genruntimeconfig.cache
+C:\Users\WIN11\source\repos\Estacionamento\Estacionamento\obj\Debug\net6.0\ref\Estacionamento.dll
