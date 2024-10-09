@@ -36,7 +36,11 @@ public class Vagas
 
     public void RemoverVeiculo()
     {
-        Console.WriteLine("Você quer remover o veiculo de qual Vaga? ");
+        Console.WriteLine("Você quer remover o veiculo de qual Vaga? \n \n      [Vagas Estacionamento]");
+        foreach (var (numeroVaga, placaCarro, modeloCarro, horaInicial) in tupleList)
+        {
+            Console.WriteLine($"vaga: [{numeroVaga}]  -  Modelo do Veiculo: {modeloCarro}  -  Placa: {placaCarro} - Hora de Entrada: {horaInicial} ");
+        }
         var removerVeiculoVaga = Convert.ToInt32(Console.ReadLine());
 
         var vaga = tupleList.FirstOrDefault(tuple => tuple.Item1 == removerVeiculoVaga);
@@ -50,10 +54,13 @@ public class Vagas
             financeiro.CobrancaPorTempo();
 
             tupleList.Remove(vaga);
+
         }
         else
         {
             Console.WriteLine("Vaga não encontrada.");
         }
+        Console.WriteLine($" \n Aperte [Enter] para retornar ao menu.");
+        Console.ReadKey();
     }
 }
