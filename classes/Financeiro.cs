@@ -4,44 +4,49 @@ namespace Estacionamento.classes
 {
     internal class Financeiro
     {
-        public double horaEntrada { get; set; }
-        public double horaSaida { get; set; }
-        public double taxaPorHora { get; set; } = 2.0;
+        public TimeSpan HoraEntrada { get; set; }
+        public TimeSpan HoraSaida { get; set; }
+        public double TaxaPorHora { get; set; } = 2.0;
 
-        public void HoraDeEntrada()
+        public void RegistrarHoraEntrada()
         {
-            Console.WriteLine("Digite a hora de entrada do Veículo (formato 24h): ");
-            horaEntrada = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Digite a hora de entrada do Veículo (formato HH:mm): ");
+            HoraEntrada = TimeSpan.Parse(Console.ReadLine());
         }
 
-        public void HoraDeRetirada()
+        public void RegistrarHoraSaida()
         {
-            Console.WriteLine("Digite a hora de saída do Veículo (formato 24h): ");
-            horaSaida = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Digite a hora de saída do Veículo (formato HH:mm): ");
+            HoraSaida = TimeSpan.Parse(Console.ReadLine());
         }
 
-        public void HorasEstacionado()
+        public double CalcularHorasEstacionado()
         {
-            double tempoEstacionado = horaSaida - horaEntrada;
+            TimeSpan tempoEstacionado;
 
-            if (tempoEstacionado < 0)
+            if (HoraSaida < HoraEntrada)
             {
-                tempoEstacionado += 24;
+                tempoEstacionado = (HoraSaida + new TimeSpan(24, 0, 0)) - HoraEntrada;
+            }
+            else
+            {
+                tempoEstacionado = HoraSaida - HoraEntrada;
             }
 
-            Console.WriteLine($"O veículo ficou estacionado por {tempoEstacionado} horas.");
+            double horasTotais = tempoEstacionado.TotalHours;
+            return Math.Ceiling(horasTotais);
         }
 
-        public void CobrancaPorTempo()
+        public void ExibirHorasEstacionadas()
         {
-            double tempoEstacionado = horaSaida - horaEntrada;
+            double horasEstacionadas = CalcularHorasEstacionado();
+            Console.WriteLine($"O veículo ficou estacionado por {horasEstacionadas} horas.");
+        }
 
-            if (tempoEstacionado < 0)
-            {
-                tempoEstacionado += 24;
-            }
-
-            double totalCobranca = tempoEstacionado * taxaPorHora;
+        public void CalcularCobranca()
+        {
+            double horasEstacionadas = CalcularHorasEstacionado();
+            double totalCobranca = horasEstacionadas * TaxaPorHora;
             Console.WriteLine($"O valor total a ser cobrado é: R$ {totalCobranca:F2}");
         }
     }

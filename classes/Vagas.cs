@@ -1,66 +1,79 @@
-﻿namespace Estacionamento.classes;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-public class Vagas
+namespace Estacionamento.classes
 {
-    public int numeroVaga { get; set; }
-    public string placaCarro { get; set; }
-    public string modeloCarro { get; set; }
-
-    List<(int, string, string, double)> tupleList = new List<(int, string, string, double)>();
-    Financeiro financeiro = new Financeiro();
-
-    public void Lista()
+    public class Vagas
     {
-        foreach (var (numeroVaga, placaCarro, modeloCarro, horaInicial) in tupleList)
+        public int NumeroVaga { get; set; }
+        public string PlacaCarro { get; set; }
+        public string ModeloCarro { get; set; }
+
+        // Agora usamos TimeSpan para a hora de entrada
+        List<(int, string, string, TimeSpan)> tupleList = new List<(int, string, string, TimeSpan)>();
+        Financeiro financeiro = new Financeiro();
+
+        public void Lista()
         {
-            Console.WriteLine($"vaga: [{numeroVaga}]  -  Modelo do Veiculo: {modeloCarro}  -  Placa: {placaCarro} - Hora de Entrada: {horaInicial} ");
-        }
-            Console.WriteLine($" \n Aperte [Enter] para retornar ao menu.");
+            if (!tupleList.Any())
+            {
+                Console.WriteLine("Não há carros estacionados.");
+            }
+            else
+            {
+                foreach (var (numeroVaga, placaCarro, modeloCarro, horaInicial) in tupleList)
+                {
+                    Console.WriteLine($"Vaga: [{numeroVaga}] - Modelo: {modeloCarro} - Placa: {placaCarro} - Hora de Entrada: {horaInicial}");
+                }
+            }
+
+            Console.WriteLine("\nAperte [Enter] para retornar ao menu.");
             Console.ReadKey();
-    }
-
-    public void AdicionarVeiculo()
-    {
-        Console.WriteLine("Digite o modelo do Carro: ");
-        modeloCarro = Console.ReadLine();
-        Console.WriteLine("Digite a placa do Carro: ");
-        placaCarro = Console.ReadLine();
-        Console.WriteLine("Vaga estacionado: ");
-        numeroVaga = Convert.ToInt32(Console.ReadLine());
-
-        financeiro.HoraDeEntrada();
-        double horaInicial = financeiro.horaEntrada;
-
-        tupleList.Add((numeroVaga, placaCarro, modeloCarro, horaInicial));
-    }
-
-    public void RemoverVeiculo()
-    {
-        Console.WriteLine("Você quer remover o veiculo de qual Vaga? \n \n      [Vagas Estacionamento]");
-        foreach (var (numeroVaga, placaCarro, modeloCarro, horaInicial) in tupleList)
-        {
-            Console.WriteLine($"vaga: [{numeroVaga}]  -  Modelo do Veiculo: {modeloCarro}  -  Placa: {placaCarro} - Hora de Entrada: {horaInicial} ");
         }
-        var removerVeiculoVaga = Convert.ToInt32(Console.ReadLine());
 
-        var vaga = tupleList.FirstOrDefault(tuple => tuple.Item1 == removerVeiculoVaga);
-
-        if (vaga.Item1 != 0) 
+        public void AdicionarVeiculo()
         {
-            financeiro.HoraDeRetirada();
-            financeiro.horaEntrada = vaga.Item4; 
-            financeiro.horaSaida = financeiro.horaSaida; 
-            financeiro.HorasEstacionado();
-            financeiro.CobrancaPorTempo();
+            Console.WriteLine("Digite o modelo do carro: ");
+            ModeloCarro = Console.ReadLine();
+            Console.WriteLine("Digite a placa do carro: ");
+            PlacaCarro = Console.ReadLine();
+            Console.WriteLine("Digite o número da vaga: ");
+            NumeroVaga = Convert.ToInt32(Console.ReadLine());
 
-            tupleList.Remove(vaga);
+            financeiro.RegistrarHoraEntrada();
+            TimeSpan horaInicial = financeiro.HoraEntrada;
+
+            tupleList.Add((NumeroVaga, PlacaCarro, ModeloCarro, horaInicial));
+        }
+
+        public void RemoverVeiculo()
+        {
+            Console.WriteLine("Você quer remover o veículo de qual vaga?\n\n[Vagas Estacionamento]");
+            foreach (var (numeroVaga, placaCarro, modeloCarro, horaInicial) in tupleList)
+            {
+                Console.WriteLine($"Vaga: [{numeroVaga}] - Modelo: {modeloCarro} - Placa: {placaCarro} - Hora de Entrada: {horaInicial}");
+            }
+
+            var removerVeiculoVaga = Convert.ToInt32(Console.ReadLine());
+            var vaga = tupleList.FirstOrDefault(tuple => tuple.Item1 == removerVeiculoVaga);
+
+            if (vaga != default)
+            {
+                financeiro.RegistrarHoraSaida();
+                financeiro.HoraEntrada = vaga.Item4;
+                financeiro.HoraSaida = financeiro.HoraSaida;
+
+                financeiro.ExibirHorasEstacionadas();
+                financeiro.CalcularCobranca();
+
+                tupleList.Remove(vaga);
+            }
+            else
+            {
+                Console.WriteLine("Vaga não encontrada.");
+            }
 
         }
-        else
-        {
-            Console.WriteLine("Vaga não encontrada.");
-        }
-        Console.WriteLine($" \n Aperte [Enter] para retornar ao menu.");
-        Console.ReadKey();
     }
 }
